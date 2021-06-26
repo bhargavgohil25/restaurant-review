@@ -1,0 +1,8 @@
+1) Search For Resaturants
+2) Authentication/Auhtorization
+3) Dashboard has All reviews of that user (who is logged in)
+4) Pagination for list component
+5) Add react-toastify whenever neccesary
+6) One can Add a new Resaturant if he is authorized.
+7) If someone is viewing the dashboard without Authentication, then he can not add restaurant or edit or delete anything
+8)  
