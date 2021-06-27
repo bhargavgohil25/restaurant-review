@@ -4,7 +4,6 @@ import {toast} from 'react-toastify'
 import { RestaurantContext } from '../context/RestaurantsContext'
 import authBaseUrl from '../API/authBaseUrl'
 
-
 const Login = () => {
 
     const { setAuth } = useContext(RestaurantContext)
@@ -28,19 +27,11 @@ const Login = () => {
 
             const body = { email, password }
 
-            // with Fetch API
-            const response = await fetch("http://localhost:3005/authenticate/login", {
-                method : "POST",
-                headers : { "Content-Type" : "application/json" },
-                body : JSON.stringify(body)
-            })  
-
             // with axios
-            // const response = await authBaseUrl.post('/register',{
-            //     body
-            // });
-            
-            const parseResponse = await response.json()
+            const headers = { "Content-Type" : "application/json" }
+            const response = await authBaseUrl.post('/login', body , headers );
+            // console.log(response)
+            const parseResponse = response.data
 
             if(parseResponse.jwtToken){
                 localStorage.setItem("token", parseResponse.jwtToken)

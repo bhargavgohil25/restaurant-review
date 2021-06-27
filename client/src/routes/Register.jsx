@@ -24,18 +24,11 @@ const Register = () => {
         e.preventDefault()
         try {
             const body = { email, password, name }
-            
-            const response = await fetch("http://localhost:3005/authenticate/register", {
-                method : "POST",
-                headers : { "Content-Type" : "application/json" },
-                body: JSON.stringify(body)
-            });
 
-            // const response = await authBaseUrl.post("/register",{
-            //     body
-            // })
+            const headers = {  "Content-Type" : "application/json" }
+            const response = await authBaseUrl.post("/register",body, headers )
 
-            const parseResponse = await response.json()
+            const parseResponse = response.data
 
             if(parseResponse.jwtToken){
                 localStorage.setItem("token", parseResponse.jwtToken)
@@ -90,7 +83,7 @@ const Register = () => {
                         </button>
                     </div>
                 </form>
-                <Link to="/login"></Link>
+                <Link to="/login">Login</Link>
             </div>
 
         </Fragment>

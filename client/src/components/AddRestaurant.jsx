@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import restaurantFinder from '../API/restaurantFinder'
 import { RestaurantContext } from '../context/RestaurantsContext'
 import RangeSlider from 'react-bootstrap-range-slider';
+import { toast } from 'react-toastify';
 // import { Col } from 'react-bootstrap';
 
 const AddRestaurant = () => {
@@ -20,6 +21,11 @@ const AddRestaurant = () => {
         setInputs({ ...inputs, [e.target.name]: e.target.value })
     }
 
+    const emptyAllFields = () => {
+        setInputs({ ...inputs, 'name':"", 'location':"" })
+        setRange(1)
+    }
+
     const onSubmit = async (e) => {
         e.preventDefault()
 
@@ -29,12 +35,20 @@ const AddRestaurant = () => {
                 location,
                 price_range : range.toString()
             })
-            // console.log(response)
 
-            addRestaurants(response.data.data.restaurant)
+            console.log(response)
+            if(response.data !== "Invalid Information"){
+                addRestaurants(response.data.data.restaurant)
+                toast.success('Restaurant Added', {
+                    draggable : true,
+                })
+            }else{
+                toast.error(response.data)
+            }
+            emptyAllFields()
             // Todo: Toastify 
         } catch (err) {
-            console.log(err.message)
+            console.error(err.message)
 
         }
     }

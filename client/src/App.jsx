@@ -3,11 +3,14 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import RestaurantDetail from './routes/RestaurantDetail';
 import Home from './routes/Home';
 import UpdatePage from './routes/UpdatePage';
-// import { RestaurantContextProvider } from './context/RestaurantsContext';
 import Login from '../src/routes/Login'
 import Register from '../src/routes/Register'
 import { RestaurantContext } from './context/RestaurantsContext';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+
+toast.configure();
 
 function App() {
 

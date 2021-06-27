@@ -9,7 +9,7 @@ pool.connect({
     user: "postgres",
     password: process.env.PASSWORD
 }).then(() => {
-    app().listen(process.env.PORT, () => {
+    app().listen(process.env.PORT || 3005, () => {
         console.log(`Listening on port ${process.env.PORT}`)
     })
 }).catch((err) => {

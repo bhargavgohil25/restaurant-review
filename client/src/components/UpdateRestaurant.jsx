@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { useHistory ,useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import RangeSlider from 'react-bootstrap-range-slider';
 import { Col } from 'react-bootstrap';
 import restaurantFinder from '../API/restaurantFinder'
@@ -25,12 +25,12 @@ const UpdateRestaurant = () => {
 
     const onSubmit = async (e) => {
         e.preventDefault()
-        
+
         try {
             const response = await restaurantFinder.put(`/${id}`, {
                 name,
                 location,
-                price_range : range.toString()
+                price_range: range.toString()
             })
 
             addRestaurants(response.data.data.restaurant)
@@ -47,7 +47,7 @@ const UpdateRestaurant = () => {
             const response = await restaurantFinder.get(`/${id}`)
             console.log(response.data.data)
             setRange(response.data.data.restaurant.price_range)
-            setInputs({...inputs, 'name' : response.data.data.restaurant.name, "location" : response.data.data.restaurant.location })
+            setInputs({ ...inputs, 'name': response.data.data.restaurant.name, "location": response.data.data.restaurant.location })
             // setRestaurants(response.data.data.restaurants);
         } catch (err) {
             console.error(err.message)
@@ -56,30 +56,31 @@ const UpdateRestaurant = () => {
 
     useEffect(() => {
         fetchAllRestaurants()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
-        
+
         <div className="gy-20">
             <form action="" onSubmit={onSubmit}>
                 <div className="form-group">
                     <label htmlFor="name">Name</label>
-                    <input 
-                        name="name" 
+                    <input
+                        name="name"
                         id="name"
-                        className="form-control" 
-                        type="text" 
-                        value = {name}
+                        className="form-control"
+                        type="text"
+                        value={name}
                         onChange={e => onChange(e)}
                     />
                 </div>
                 <div className="form-group">
                     <label htmlFor="location">Location</label>
-                    <input 
+                    <input
                         name="location"
-                        id="location" 
-                        className="form-control" 
-                        type="text" 
+                        id="location"
+                        className="form-control"
+                        type="text"
                         value={location}
                         onChange={e => onChange(e)}
                     />
@@ -96,8 +97,8 @@ const UpdateRestaurant = () => {
                         />
                     </Col>
                 </div>
-                <div style={{marginTop : "40px"}}>
-                    <button 
+                <div style={{ marginTop: "40px" }}>
+                    <button
                         type="submit"
                         className="btn btn-primary mt-10"
                     >

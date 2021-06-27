@@ -22,6 +22,7 @@ const RestaurantList = () => {
 
     useEffect(() => {
         fetchAllRestaurants()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const handleUpdate = async (e, id) => {
@@ -49,8 +50,8 @@ const RestaurantList = () => {
     const renderRating = (restaurant) => {
         return (
             <>
-                { restaurant.average_rating ?  <StarRating rating={restaurant.average_rating} /> : <span className="text-warning ml-1">0 Reviews</span> }
-                { restaurant.average_rating ?  <span className="text-warning ml-1">({restaurant.count})</span> : <span></span> }
+                {restaurant.average_rating ? <StarRating rating={restaurant.average_rating} /> : <span className="text-warning ml-1">0 Reviews</span>}
+                {restaurant.average_rating ? <span className="text-warning ml-1">({restaurant.count})</span> : <span></span>}
             </>
         )
     }

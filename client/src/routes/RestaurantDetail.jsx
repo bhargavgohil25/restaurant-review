@@ -12,7 +12,7 @@ const RestaurantDetail = () => {
     const { selectedRestaurant, setSelectedRestaurant } = useContext(
         RestaurantContext
     );
-    
+
     const fetchRestaurant = async () => {
         try {
             const response = await restaurantFinder.get(`/${id}`)
@@ -25,6 +25,7 @@ const RestaurantDetail = () => {
 
     useEffect(() => {
         fetchRestaurant()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
@@ -36,15 +37,15 @@ const RestaurantDetail = () => {
                         {selectedRestaurant.restaurant.name}
                     </h1>
                     <div className="text-center">
-                        <StarRating rating={selectedRestaurant.restaurant.average_rating}/>
+                        <StarRating rating={selectedRestaurant.restaurant.average_rating} />
                         <span className="text-warning">
                             {selectedRestaurant.restaurant.count ? `(${selectedRestaurant.restaurant.count})` : "(0)"}
                         </span>
                     </div>
-                    <div className="mt-3"> 
-                        <Reviews reviews={selectedRestaurant.reviews}/>
+                    <div className="mt-3">
+                        <Reviews reviews={selectedRestaurant.reviews} />
                     </div>
-                    <h1 className="text-center display-6" style={{marginTop : "40px"}}>
+                    <h1 className="text-center display-6" style={{ marginTop: "40px" }}>
                         Add Your Reviews Here
                     </h1>
                     <AddReview />
