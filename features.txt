@@ -5,4 +5,3 @@
 5) Add react-toastify whenever neccesary
 6) One can Add a new Resaturant if he is authorized.
 7) If someone is viewing the dashboard without Authentication, then he can not add restaurant or edit or delete anything
-8)  
