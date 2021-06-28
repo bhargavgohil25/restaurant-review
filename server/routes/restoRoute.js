@@ -22,6 +22,26 @@ router.get('/', async (req, res) => {
     }
 })
 
+router.get('/searchrestaurants', async (req,res) => {
+    try {
+        const { search } = req.query
+        // console.log(search)
+
+        const results = await restoControl.getSearch(search)
+        console.log(results)
+
+        res.status(200).json({
+            status: "success",
+            results : results.rows.length,
+            data : {
+                restaurants : results.rows
+            }
+        })
+    } catch (err) {
+        console.error(err.message)
+    }
+})
+
 router.get('/:id', async (req, res) => {
     const { id } = req.params
     try {

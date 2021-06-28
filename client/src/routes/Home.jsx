@@ -4,11 +4,54 @@ import Header from '../components/Header'
 import RestaurantList from '../components/RestaurantList'
 import { RestaurantContext } from '../context/RestaurantsContext'
 import { toast } from 'react-toastify'
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { TextField} from '@material-ui/core';
+import SearchList from '../components/SearchList'
+import { useDebounce } from 'use-debounce';
+
+const CssTextField = withStyles({
+    root: {
+        '& label.Mui-focused': {
+            color: "#037bfc",
+        },
+        '& .MuiInput-underline:after': {
+            borderBottomColor: '#037bfc',
+        },
+        '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+                borderColor: 'red',
+            },
+            '&:hover fieldset': {
+                borderColor: '#037bfc',
+            },
+            '&.Mui-focused fieldset': {
+                borderColor: '#037bfc',
+            },
+        },
+    },
+})(TextField);
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    textField: {
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+        width: "30ch"
+    }
+}));
 
 const Home = () => {
+    const classes = useStyles();
+
     const title = "Restaurant Finder";
 
-    const { setAuth } = useContext(RestaurantContext)
+    const { setAuth  } = useContext(RestaurantContext)
+
+    const [text, setText] = useState("")
+    const [value] = useDebounce(text, 1000)
 
     const [name, setName] = useState("")
 
@@ -46,10 +89,10 @@ const Home = () => {
                     <Header title={title} />
                 </div>
                 <div class="col-md-1 col-sm-12">
-                    <button 
-                        style={{marginTop : "35px"}}
+                    <button
+                        style={{ marginTop: "35px" }}
                         className="btn btn-danger"
-                        onClick = {(e) => handleLogout(e)}
+                        onClick={(e) => handleLogout(e)}
                     >
                         Logout
                     </button>
@@ -61,8 +104,19 @@ const Home = () => {
             <div className="col-12" style={{ marginBottom: "30px" }}>
                 <AddRestaurant />
             </div>
-            <div className="col-12" style={{ marginBottom: "30px" }}>
-                <RestaurantList />
+            <div className="d-flex justify-content-center align-items-center mb-50">
+                <CssTextField
+                    type="text"
+                    name="Search"
+                    id="search"
+                    label="Search"
+                    className={classes.textField}
+                    value={text}
+                    onChange={e => setText(e.target.value)}
+                />
+            </div>
+            <div className="col-12" style={{ marginTop: "30px" }}>
+                {value ? <SearchList value={value}/> : <RestaurantList /> }
             </div>
         </div>
     )

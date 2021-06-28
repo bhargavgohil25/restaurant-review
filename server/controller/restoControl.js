@@ -24,6 +24,14 @@ class restoControl {
         return [restaurant, reviews]
     }
 
+    static async getSearch(search){
+        const result = await pool.query(
+            `SELECT * FROM restaurants WHERE text_token @@ to_tsquery('${search}');`
+        )
+
+        return result
+    }
+
     static async postResto(name, location, price_range){
         const result = await pool.query(
             "INSERT INTO restaurants (name, location, price_range) VALUES($1 , $2, $3) RETURNING *;", 
