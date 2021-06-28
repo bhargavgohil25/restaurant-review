@@ -5,9 +5,9 @@ const pool = require('./src/pool')
 pool.connect({
     host: "localhost",
     port: 5432,
-    database: process.env.DATABASE,
+    database: yelp,
     user: "postgres",
-    password: process.env.PASSWORD
+    password: "Bapasitar@25"
 }).then(() => {
     app().listen(process.env.PORT || 3005, () => {
         console.log(`Listening on port ${process.env.PORT}`)
