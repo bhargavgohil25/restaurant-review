@@ -70,29 +70,10 @@ const RestaurantList = () => {
                         <th scope="col">Delete</th>
                     </tr>
                 </thead>
-                {/* <tbody>
-                    <tr>
-                        <td>McDonalds</td>
-                        <td>New York</td>
-                        <td>$$$</td>
-                        <td>Rating</td>
-                        <td><button className="btn btn-warning">Edit</button> </td>
-                        <td><button className="btn btn-danger">Delete</button> </td>
-                    </tr>
-                    <tr>
-                        <td>McDonalds</td>
-                        <td>New York</td>
-                        <td>$$$</td>
-                        <td>Rating</td>
-                        <td><button className="btn btn-warning">Edit</button> </td>
-                        <td><button className="btn btn-danger">Delete</button> </td>
-                    </tr>
-                </tbody> */}
                 <tbody>
                     {restaurants && restaurants.map((restaurant) => {
                         return (
                             <tr
-
                                 key={restaurant.id}
                                 onClick={() => handleRestaurantSelect(restaurant.id)}
                             >

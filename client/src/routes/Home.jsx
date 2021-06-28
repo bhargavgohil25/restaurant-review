@@ -41,13 +41,13 @@ const Home = () => {
 
     return (
         <div className="row gy-50">
-            <div class="row justify-content-center">
+            <div class="row">
                 <div class="col-md-11 col-sm-12">
                     <Header title={title} />
                 </div>
-                <div class="col-md-1 col-sm-6">
+                <div class="col-md-1 col-sm-12">
                     <button 
-                        style={{marginTop : "35px", marginLeft : "50px"}}
+                        style={{marginTop : "35px"}}
                         className="btn btn-danger"
                         onClick = {(e) => handleLogout(e)}
                     >

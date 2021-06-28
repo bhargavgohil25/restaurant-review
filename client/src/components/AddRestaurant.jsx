@@ -3,9 +3,49 @@ import restaurantFinder from '../API/restaurantFinder'
 import { RestaurantContext } from '../context/RestaurantsContext'
 import RangeSlider from 'react-bootstrap-range-slider';
 import { toast } from 'react-toastify';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { TextField} from '@material-ui/core';
 // import { Col } from 'react-bootstrap';
+// import { green } from '@material-ui/core/colors';
+
+const CssTextField = withStyles({
+    root: {
+        '& label.Mui-focused': {
+            color: "#037bfc",
+        },
+        '& .MuiInput-underline:after': {
+            borderBottomColor: '#037bfc',
+        },
+        '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+                borderColor: 'red',
+            },
+            '&:hover fieldset': {
+                borderColor: '#037bfc',
+            },
+            '&.Mui-focused fieldset': {
+                borderColor: '#037bfc',
+            },
+        },
+    },
+})(TextField);
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    textField: {
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+        width: "30ch"
+    }
+}));
+
+
 
 const AddRestaurant = () => {
+    const classes = useStyles();
 
     const { addRestaurants } = useContext(RestaurantContext)
     const [range, setRange] = useState(1)
@@ -22,7 +62,7 @@ const AddRestaurant = () => {
     }
 
     const emptyAllFields = () => {
-        setInputs({ ...inputs, 'name':"", 'location':"" })
+        setInputs({ ...inputs, 'name': "", 'location': "" })
         setRange(1)
     }
 
@@ -33,16 +73,16 @@ const AddRestaurant = () => {
             const response = await restaurantFinder.post("/", {
                 name,
                 location,
-                price_range : range.toString()
+                price_range: range.toString()
             })
 
             console.log(response)
-            if(response.data !== "Invalid Information"){
+            if (response.data !== "Invalid Information") {
                 addRestaurants(response.data.data.restaurant)
                 toast.success('Restaurant Added', {
-                    draggable : true,
+                    draggable: true,
                 })
-            }else{
+            } else {
                 toast.error(response.data)
             }
             emptyAllFields()
@@ -59,29 +99,48 @@ const AddRestaurant = () => {
                 action=""
                 className="row"
                 onSubmit={onSubmit}
+                autoComplete="off"
             >
                 <div className="col-md">
-                    <input
+                    <CssTextField
+                        type="text"
+                        name="name"
+                        id="name"
+                        label="Name"
+                        className={classes.textField}
+                        value={name}
+                        onChange={e => onChange(e)}
+                    />
+                    {/* <input
                         type="text"
                         name="name"
                         className="form-control"
                         placeholder="name"
                         value={name}
                         onChange={e => onChange(e)}
-                    />
+                    /> */}
                 </div>
                 <div className="col-md">
-                    <input
+                    <CssTextField
+                        type="text"
+                        name="location"
+                        id="location"
+                        label="Location"
+                        className={classes.textField}
+                        value={location}
+                        onChange={e => onChange(e)}
+                    />
+                    {/* <input
                         className="form-control"
                         name="location"
                         type="text"
                         placeholder="location"
                         value={location}
                         onChange={e => onChange(e)}
-                    />
+                    /> */}
                 </div>
                 <div className="col-md">
-                <label htmlFor="price_range">Price Range</label>
+                    <label htmlFor="price_range">Price Range</label>
                     <RangeSlider
                         // tooltip='on'
                         min={1}
@@ -117,7 +176,6 @@ const AddRestaurant = () => {
                         Add
                     </button>
                 </div>
-
             </form>
         </div>
     )
