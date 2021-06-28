@@ -4,7 +4,7 @@ module.exports = (req, res, next) => {
         const { name, location, price_range } = req.body
 
         if (!name || !location || !price_range) {
-            return res.status(204).json("Invalid Information")
+            return res.status(201).json("Invalid Information")
         }else{
             next()
         }

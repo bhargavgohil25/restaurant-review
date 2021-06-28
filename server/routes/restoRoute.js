@@ -28,7 +28,7 @@ router.get('/searchrestaurants', async (req,res) => {
         // console.log(search)
 
         const results = await restoControl.getSearch(search)
-        console.log(results)
+        // console.log(results)
 
         res.status(200).json({
             status: "success",
@@ -62,7 +62,7 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-router.post('/', async (req, res) => {
+router.post('/',validRestaurant, async (req, res) => {
 
     try {
         const { name, location, price_range } = req.body

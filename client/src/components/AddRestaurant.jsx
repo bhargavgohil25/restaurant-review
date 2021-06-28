@@ -76,7 +76,7 @@ const AddRestaurant = () => {
                 price_range: range.toString()
             })
 
-            console.log(response)
+            // console.log(response)
             if (response.data !== "Invalid Information") {
                 addRestaurants(response.data.data.restaurant)
                 toast.success('Restaurant Added', {

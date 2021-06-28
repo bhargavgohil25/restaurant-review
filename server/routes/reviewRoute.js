@@ -13,7 +13,7 @@ router.post('/:id/addReview', async (req, res) => {
             "INSERT INTO reviews (restaurant_id, name, review, rating) VALUES ($1, $2, $3, $4) RETURNING *;",
             [id, name, review, rating]
         )
-        console.log(newRating)
+        // console.log(newRating)
         res.status(201).json({
             status : "success",
             data : {

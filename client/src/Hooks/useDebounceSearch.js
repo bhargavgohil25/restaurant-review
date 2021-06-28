@@ -2,7 +2,7 @@ import { AwesomeDebouncePromise } from 'awesome-debounce-promise'
 import { useAsync } from 'react-async-hook'
 import { useConstant } from 'use-constant'
 import { RestaurantContext } from '../context/RestaurantsContext';
-const { useState, useContext } = require("react");
+const { useContext } = require("react");
 
 
 

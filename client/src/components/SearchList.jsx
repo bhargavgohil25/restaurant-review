@@ -18,7 +18,7 @@ const SearchList = ({ value }) => {
             console.log(searchResponse)
             setAllRestaurants(searchResponse.data.data.restaurants)
         } catch (err) {
-            console.log(err.message)
+            console.error(err.message)
         }
     }
 
