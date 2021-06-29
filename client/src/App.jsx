@@ -8,7 +8,7 @@ import Register from '../src/routes/Register'
 import { RestaurantContext } from './context/RestaurantsContext';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import authBaseUrl from './API/authBaseUrl'
 
 toast.configure();
 
@@ -18,12 +18,17 @@ function App() {
 
   const checkIsAuth = async () => {
     try {
-      const response = await fetch("http://localhost:3005/authenticate/is-verify", {
-        method: "GET",
-        headers : { token : localStorage.token },
-      })
-  
-      const parseResponse = await response.json()
+      const headers  = { token : localStorage.token }
+      const response = await authBaseUrl.get("/is-verify", {headers})
+      
+      // const response = await fetch("http://localhost:3005/authenticate/is-verify", {
+      //   method: "GET",
+      //   headers : { token : localStorage.token },
+      // })
+      
+      // console.log(response)
+      // const parseResponse = await response.json()
+      const parseResponse = response.data
   
       // console.log(parseResponse)
       parseResponse === true ? setIsAuthenticated(true) : setIsAuthenticated(false)
