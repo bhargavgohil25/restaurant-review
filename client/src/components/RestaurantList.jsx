@@ -8,7 +8,7 @@ import StarRating from './StarRating'
 const RestaurantList = () => {
     let history = useHistory()
 
-    const { restaurants, setRestaurants } = useContext(RestaurantContext)
+    const { restaurants, setRestaurants, userId } = useContext(RestaurantContext)
 
     const fetchAllRestaurants = async () => {
         try {
@@ -19,6 +19,8 @@ const RestaurantList = () => {
             console.error(err.message)
         }
     }
+
+    // console.log(restaurants)
 
     useEffect(() => {
         fetchAllRestaurants()
@@ -81,19 +83,28 @@ const RestaurantList = () => {
                                 <td>{restaurant.location}</td>
                                 <td>{"$".repeat(restaurant.price_range)}</td>
                                 <td>{renderRating(restaurant)}</td>
-                                <td>
-                                    <button
-                                        className="btn btn-warning"
-                                        onClick={(e) => handleUpdate(e, restaurant.id)}
-                                    >Update
-                                    </button>
+                                <td>{
+                                     restaurant.userid === userId ?
+                                            <button
+                                                className="btn btn-warning"
+                                                onClick={(e) => handleUpdate(e, restaurant.id)}
+                                            >Update
+                                            </button>
+                                        : ""
+                                    }
                                 </td>
                                 <td>
-                                    <button
-                                        className="btn btn-danger"
-                                        onClick={(e) => handleDelete(e, restaurant.id)}
-                                    >Delete
-                                    </button></td>
+                                {
+                                    restaurant.userid === userId ?
+                                            <button
+                                                className="btn btn-danger"
+                                                onClick={(e) => handleDelete(e, restaurant.id)}
+                                            >Delete
+                                            </button>
+                                        : ""
+                                }
+                                </td>
+                                    
                             </tr>
                         );
                     })}

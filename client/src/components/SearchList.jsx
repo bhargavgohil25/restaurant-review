@@ -15,7 +15,7 @@ const SearchList = ({ value }) => {
     const fetchSearchRestaurants = async () => {
         try {
             const searchResponse = await restaurantFinder.get(`/searchrestaurants?search=${value}`)
-            console.log(searchResponse)
+            // console.log(searchResponse)
             setAllRestaurants(searchResponse.data.data.restaurants)
         } catch (err) {
             console.error(err.message)

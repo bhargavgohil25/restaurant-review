@@ -50,7 +50,7 @@ const Home = () => {
 
     const title = "Restaurant Finder";
 
-    const { setAuth } = useContext(RestaurantContext)
+    const { setAuth, setUser } = useContext(RestaurantContext)
 
     const [text, setText] = useState("")
     const [value] = useDebounce(text, 1000)
@@ -66,7 +66,9 @@ const Home = () => {
 
             const parseResponse = await response.json()
 
+            // console.log(parseResponse)
             setName(parseResponse.user_name)
+            setUser(parseResponse.user_id)
 
         } catch (err) {
             console.error(err)
@@ -75,6 +77,7 @@ const Home = () => {
 
     useEffect(() => {
         getInfo()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const handleLogout = (e) => {

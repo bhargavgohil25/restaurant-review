@@ -32,10 +32,10 @@ class restoControl {
         return result
     }
 
-    static async postResto(name, location, price_range){
+    static async postResto(name, location, price_range, userid){
         const result = await pool.query(
-            "INSERT INTO restaurants (name, location, price_range) VALUES($1 , $2, $3) RETURNING *;", 
-            [name, location, price_range]
+            "INSERT INTO restaurants (name, location, price_range, userid) VALUES($1 , $2, $3, $4) RETURNING *;", 
+            [name, location, price_range, userid]
         )
 
         return result

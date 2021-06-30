@@ -62,15 +62,15 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-router.post('/',validRestaurant, async (req, res) => {
+router.post('/', async (req, res) => {
 
     try {
-        const { name, location, price_range } = req.body
+        const { name, location, price_range, userid } = req.body
 
         if (!name || !location || !price_range) {
             res.status(200).json("Invalid Information")
         }else{
-            const result = await restoControl.postResto(name, location, price_range)
+            const result = await restoControl.postResto(name, location, price_range, userid)
     
             res.status(200).json({
                 status: "success",

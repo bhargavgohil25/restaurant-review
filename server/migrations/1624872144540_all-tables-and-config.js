@@ -5,22 +5,6 @@ exports.shorthands = undefined;
 exports.up = pgm => {
     pgm.sql(`
     
-    CREATE TABLE restaurants (
-        id BIGSERIAL PRIMARY KEY,
-        name VARCHAR(100) NOT NULL,
-        location VARCHAR(100),
-        price_range INTEGER NOT NULL,
-        text_token tsvector
-    );
-
-    CREATE TABLE reviews (
-        id BIGSERIAL PRIMARY KEY NOT NULL,
-        restaurant_id INT NOT NULL REFERENCES restaurants(id),
-        name VARCHAR(50) NOT NULL,
-        review TEXT NOT NULL,
-        rating INT NOT NULL CHECK(rating >= 1 and rating <= 5)
-    );
-
     CREATE TABLE users (
         user_id uuid PRIMARY KEY DEFAULT
         uuid_generate_v4(),
@@ -28,6 +12,25 @@ exports.up = pgm => {
         user_email VARCHAR(255) NOT NULL,
         user_password VARCHAR(255) NOT NULL
     );
+
+    CREATE TABLE restaurants (
+        id BIGSERIAL PRIMARY KEY,
+        name VARCHAR(100) NOT NULL,
+        location VARCHAR(100),
+        price_range INTEGER NOT NULL,
+        text_token tsvector,
+        userid uuid NOT NULL REFERENCES users(user_id)
+    );
+
+    CREATE TABLE reviews (
+        id BIGSERIAL PRIMARY KEY NOT NULL,
+        restaurant_id INT NOT NULL REFERENCES restaurants(id),
+        name VARCHAR(50) NOT NULL,
+        review TEXT NOT NULL,
+        rating INT NOT NULL CHECK(rating >= 1 and rating <= 5),
+        userid uuid NOT NULL REFERENCES users(user_id)
+    );
+
 
     CREATE INDEX token_idx ON restaurants(text_token);
 
@@ -54,6 +57,6 @@ exports.down = pgm => {
         DROP TABLE restaurants CASCADE;
         DROP TABLE reviews CASCADE;
         DROP TABLE users CASCADE;
-        DROP TABLE pgmigrations CASCADE;
+        DROP TRIGGER tsvector_trigger;
     `)
 };

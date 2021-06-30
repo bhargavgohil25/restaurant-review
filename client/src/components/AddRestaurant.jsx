@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 const AddRestaurant = () => {
     const classes = useStyles();
 
-    const { addRestaurants } = useContext(RestaurantContext)
+    const { addRestaurants, userId } = useContext(RestaurantContext)
     const [range, setRange] = useState(1)
 
     const [inputs, setInputs] = useState({
@@ -73,7 +73,8 @@ const AddRestaurant = () => {
             const response = await restaurantFinder.post("/", {
                 name,
                 location,
-                price_range: range.toString()
+                price_range: range.toString(),
+                userid : userId.toString()
             })
 
             // console.log(response)
