@@ -4,6 +4,8 @@ exports.shorthands = undefined;
 
 exports.up = pgm => {
     pgm.sql(`
+
+    CREATE EXTENSION "uuid-​ossp";
     
     CREATE TABLE users (
         user_id uuid PRIMARY KEY DEFAULT
@@ -29,6 +31,12 @@ exports.up = pgm => {
         review TEXT NOT NULL,
         rating INT NOT NULL CHECK(rating >= 1 and rating <= 5),
         userid uuid NOT NULL REFERENCES users(user_id)
+    );
+
+    CREATE TABLE likes (
+        id BIGSERIAL PRIMARY KEY NOT NULL,
+        user_id uuid NOT NULL REFERENCES users(user_id)
+        review_id BIGINT NOT NULL REFERENCES reviews(id)
     );
 
 
