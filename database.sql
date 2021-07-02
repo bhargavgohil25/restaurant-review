@@ -1,3 +1,11 @@
+CREATE TABLE users (
+    user_id uuid PRIMARY KEY DEFAULT
+    uuid_generate_v4(),
+    user_name VARCHAR(255) NOT NULL,
+    user_email VARCHAR(255) NOT NULL,
+    user_password VARCHAR(255) NOT NULL
+);
+
 -- Table for Restaurant
 
 CREATE TABLE restaurants (
@@ -18,12 +26,12 @@ CREATE TABLE reviews (
     rating INT NOT NULL CHECK(rating >= 1 and rating <= 5)
 );
 
-CREATE TABLE users (
-    user_id uuid PRIMARY KEY DEFAULT
-    uuid_generate_v4(),
-    user_name VARCHAR(255) NOT NULL,
-    user_email VARCHAR(255) NOT NULL,
-    user_password VARCHAR(255) NOT NULL
+
+
+CREATE TABLE likes (
+    id BIGSERIAL PRIMARY KEY NOT NULL,
+    user_id uuid NOT NULL REFERENCES users(user_id),
+    review_id BIGINT NOT NULL REFERENCES reviews(id)
 );
 
 -- Count  according to the location

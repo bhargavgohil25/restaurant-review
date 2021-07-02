@@ -20,8 +20,6 @@ const RestaurantList = () => {
         }
     }
 
-    // console.log(restaurants)
-
     useEffect(() => {
         fetchAllRestaurants()
         // eslint-disable-next-line react-hooks/exhaustive-deps

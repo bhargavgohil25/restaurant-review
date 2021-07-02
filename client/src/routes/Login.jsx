@@ -45,6 +45,7 @@ const Login = () => {
             }
 
         } catch (err) {
+            toast.error("Invalid Credentials")
             console.error(err.message)
         }
     }

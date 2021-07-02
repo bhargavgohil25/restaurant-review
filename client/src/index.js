@@ -7,10 +7,10 @@ import { RestaurantContextProvider } from './context/RestaurantsContext';
 
 
 ReactDOM.render(
-  <React.StrictMode>
+  <>
     <RestaurantContextProvider>
-      <App />
+        <App />
     </RestaurantContextProvider>
-  </React.StrictMode>,
+  </>,
   document.getElementById('root')
 );

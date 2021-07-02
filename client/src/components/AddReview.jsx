@@ -1,17 +1,60 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import RangeSlider from 'react-bootstrap-range-slider';
 import { Col } from 'react-bootstrap';
 import restaurantFinder from '../API/restaurantFinder';
 import { useParams } from 'react-router-dom';
+import { RestaurantContext } from '../context/RestaurantsContext'
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { TextField } from '@material-ui/core';
+
+
+const CssTextField = withStyles({
+    root: {
+        '& label.Mui-focused': {
+            color: "#037bfc",
+        },
+        '& .MuiInput-underline:after': {
+            borderBottomColor: '#037bfc',
+        },
+        '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+                borderColor: 'red',
+            },
+            '&:hover fieldset': {
+                borderColor: '#037bfc',
+            },
+            '&.Mui-focused fieldset': {
+                borderColor: '#037bfc',
+            },
+
+        },
+
+    },
+})(TextField);
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    textField: {
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+        width: "30ch"
+    }
+}));
 
 const AddReview = () => {
+    const classes = useStyles();
+
     const { id } = useParams()
+    const { userId } = useContext(RestaurantContext)
 
     const [rating, setRating] = useState(0)
 
     const [inputs, setInputs] = useState({
         name: "",
-        review : ""
+        review: ""
     })
 
     const { name, review } = inputs
@@ -28,10 +71,11 @@ const AddReview = () => {
         e.preventDefault()
         try {
             e.preventDefault();
-            await restaurantFinder.post(`/${id}/addReview`,{
+            await restaurantFinder.post(`/${id}/addReview`, {
                 name,
                 review,
-                rating
+                rating,
+                userid: userId.toString()
             })
 
             reloadPage()
@@ -43,20 +87,31 @@ const AddReview = () => {
 
     return (
         <div className="mb-2">
-            <form 
+            <form
                 onSubmit={(e) => onReviewSubmit(e)}
                 action=""
             >
                 <div className="form-row mr-50">
                     <div className="form-group col-md-8">
-                        <label htmlFor="name">Name</label>
-                        <input 
+                        {/* <label htmlFor="name">Name</label> */}
+                        {/* <input 
                             id="name" 
                             type="text" 
                             name="name"
                             value={name}
                             placeholder="name" 
                             className="form-control" 
+                            onChange={e => onChange(e)}
+                        /> */}
+                        <CssTextField
+                            type="text"
+                            name="name"
+                            id="name"
+                            label="Name"
+                            style={{width : '80%'}}
+                            autoComplete="false"
+                            className={classes.textField}
+                            value={name}
                             onChange={e => onChange(e)}
                         />
                     </div>
@@ -73,17 +128,19 @@ const AddReview = () => {
                         </Col>
                     </div>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="Review">Review</label>
-                    <textarea 
-                        id="review" 
-                        className="form-control" 
+                <div className="form-floating" style={{marginTop : "50px"}}>
+                    <textarea
+                        id="review"
+                        className="form-control"
                         name="review"
+                        placeholder="Review"
                         value={review}
                         onChange={e => onChange(e)}
+                        style={{height: "100px"}}
                     ></textarea>
+                    <label for="floatingTextarea">Add Review</label>
                 </div>
-                <button className="btn btn-primary" type="submit">Submit</button>
+                <button className="btn btn-primary" style={{marginTop : "20px"}} type="submit">Submit</button>
             </form>
         </div>
     )

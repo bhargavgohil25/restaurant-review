@@ -5,8 +5,7 @@ import RangeSlider from 'react-bootstrap-range-slider';
 import { toast } from 'react-toastify';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { TextField} from '@material-ui/core';
-// import { Col } from 'react-bootstrap';
-// import { green } from '@material-ui/core/colors';
+
 
 const CssTextField = withStyles({
     root: {
@@ -112,14 +111,6 @@ const AddRestaurant = () => {
                         value={name}
                         onChange={e => onChange(e)}
                     />
-                    {/* <input
-                        type="text"
-                        name="name"
-                        className="form-control"
-                        placeholder="name"
-                        value={name}
-                        onChange={e => onChange(e)}
-                    /> */}
                 </div>
                 <div className="col-md">
                     <CssTextField
@@ -131,14 +122,6 @@ const AddRestaurant = () => {
                         value={location}
                         onChange={e => onChange(e)}
                     />
-                    {/* <input
-                        className="form-control"
-                        name="location"
-                        type="text"
-                        placeholder="location"
-                        value={location}
-                        onChange={e => onChange(e)}
-                    /> */}
                 </div>
                 <div className="col-md">
                     <label htmlFor="price_range">Price Range</label>

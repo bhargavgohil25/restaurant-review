@@ -9,6 +9,8 @@ export const RestaurantContextProvider = props => {
     const [isAuthenticated, setIsAuthenticated] = useState(false)
     const [searchText, setSearchText] = useState("")
     const [userId, setUserId] = useState("")
+    const [likes, setLikes] = useState([])
+    const [allLikesByUser, setAllLikesByUser] = useState([])
 
     const addRestaurants = (restaurant) => {
         setRestaurants([...restaurants, restaurant])
@@ -41,7 +43,11 @@ export const RestaurantContextProvider = props => {
                 setSearchText,
                 setSearch,
                 userId,
-                setUser
+                setUser,
+                likes,
+                setLikes,
+                allLikesByUser, 
+                setAllLikesByUser
             }} >
             {props.children}
         </RestaurantContext.Provider>
