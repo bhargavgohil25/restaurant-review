@@ -29,7 +29,7 @@ $ npm install
 $ npm run server 
 ## By default the server will start at http://localhost:3005
 ```
-To setup the backend follow :
+To setup the Database follow :
 
 - Install Postgres from [here](https://www.postgresql.org/download/) according to your preferred OS.
 - Enter the postgresql by `psql -U postgres` , enter the password (w.r.t windows)
