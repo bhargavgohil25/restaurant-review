@@ -13,7 +13,8 @@ CREATE TABLE restaurants (
     name VARCHAR(100) NOT NULL,
     location VARCHAR(100),
     price_range INTEGER NOT NULL,
-    text_token tsvector
+    text_token tsvector,
+    userid uuid REFERENCES users(user_id)
 );
 
 -- Table For all the Reviews
